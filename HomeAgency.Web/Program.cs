@@ -1,7 +1,13 @@
+using HomeAgency.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<HomeAgencyDbContext>(options => 
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefalutConnectionString")));
 
 var app = builder.Build();
 
