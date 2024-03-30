@@ -1,0 +1,41 @@
+﻿@model IEnumerable<HomeAgency.Domain.Entities.Villa>
+
+@{
+    ViewData["Title"] = "Villas";
+}
+
+<h1>Villas list</h1>
+
+<div class="card w-100 p-4">
+    <div class="card-header bg-success bg-gradient py-3">
+        <div class="text-center">
+            All Viallas
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <a asp-action="Create" asp-controller="Villa" class="btn btn-secondary m-2">
+            <i class="bi bi-plus-circle"></i> Add new villa
+        </a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Sqft</th>
+                    <th>Ocupancy</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var villa in Model)
+                {
+                    <tr>
+                        <td>@villa.Name</td>
+                        <td>@villa.Price</td>
+                        <td>@villa.Sqft</td>
+                        <td>@villa.Occupancy</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
