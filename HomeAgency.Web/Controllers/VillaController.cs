@@ -39,4 +39,59 @@ public class VillaController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
+    public IActionResult Update(int villaId)
+    {
+        var villa = _context.villas.FirstOrDefault(x => x.Id == villaId);
+
+        if (villa == null)
+        {
+            return NotFound();
+        }
+
+        return View(villa);
+    }
+
+    [HttpPost]
+    public IActionResult Update(Villa obj)
+    {
+
+        if (!ModelState.IsValid)
+        {
+            return View(obj);
+        }
+
+        _context.villas.Update(obj);
+        _context.SaveChanges();
+
+        return RedirectToAction(nameof(Index));
+    }
+
+    public IActionResult Delete(int villaId)
+    {
+        var villa = _context.villas.FirstOrDefault(x => x.Id == villaId);
+
+        if (villa == null)
+        {
+            return NotFound();
+        }
+
+        return View(villa);
+    }
+
+    [HttpPost]
+    public IActionResult Delete(Villa obj)
+    {
+        var villa = _context.villas.Find(obj.Id);
+
+        if (villa == null)
+        {
+            return NotFound();
+        }
+
+        _context.villas.Remove(villa);
+        _context.SaveChanges();
+
+        return RedirectToAction(nameof(Index));
+    }
 }
