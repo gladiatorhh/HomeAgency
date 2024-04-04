@@ -37,6 +37,7 @@ public class VillaController : Controller
         _context.villas.Add(obj);
         _context.SaveChanges();
 
+        TempData["OpSuccess"] = "A new villa has been created";
         return RedirectToAction(nameof(Index));
     }
 
@@ -64,6 +65,7 @@ public class VillaController : Controller
         _context.villas.Update(obj);
         _context.SaveChanges();
 
+        TempData["OpSuccess"] = "Villa has been updated";
         return RedirectToAction(nameof(Index));
     }
 
@@ -92,6 +94,7 @@ public class VillaController : Controller
         _context.villas.Remove(villa);
         _context.SaveChanges();
 
+        TempData["OpSuccess"] = "Villa has been deleted";
         return RedirectToAction(nameof(Index));
     }
 }

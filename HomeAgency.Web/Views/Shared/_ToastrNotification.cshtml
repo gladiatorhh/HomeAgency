@@ -1,0 +1,7 @@
+﻿@if(TempData["OpSuccess"] is not null)
+{
+    <script src="~/lib/toastr/toastr.min.js"></script>
+    <script>
+        toastr.success("@TempData["OpSuccess"]")
+    </script>
+}
