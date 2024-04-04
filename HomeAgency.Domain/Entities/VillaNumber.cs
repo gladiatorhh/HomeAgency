@@ -18,5 +18,5 @@ public class VillaNumber
 
     [ForeignKey(nameof(Villa))]
     public int VillaId { get; set; }
-    public Villa Villa { get; set; }
+    public Villa? Villa { get; set; }
 }
