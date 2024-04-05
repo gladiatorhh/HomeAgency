@@ -17,6 +17,7 @@ public class VillaNumber
     public string? Specialities { get; set; }
 
     [ForeignKey(nameof(Villa))]
+    [Display(Name = "Villa")]
     public int VillaId { get; set; }
     public Villa? Villa { get; set; }
 }

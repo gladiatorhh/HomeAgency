@@ -1,6 +1,7 @@
 ﻿using HomeAgency.Domain.Entities;
 using HomeAgency.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HomeAgency.Web.Controllers;
 
@@ -17,8 +18,16 @@ public class VillaNumberController : Controller
     public IActionResult Index() =>
         View(_context.VillaNumbers.ToList());
 
-    public IActionResult Create() =>
-        View();
+    public IActionResult Create()
+    {
+        ViewBag.Villas = _context.villas.Select(v => new SelectListItem
+        {
+            Text = v.Name,
+            Value = v.Id.ToString()
+        });
+
+        return View();
+    }
 
     [HttpPost]
     public IActionResult Create(VillaNumber obj)
