@@ -1,7 +1,9 @@
 ﻿using HomeAgency.Domain.Entities;
 using HomeAgency.Infrastructure.Data;
+using HomeAgency.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace HomeAgency.Web.Controllers;
 
@@ -16,28 +18,45 @@ public class VillaNumberController : Controller
     }
 
     public IActionResult Index() =>
-        View(_context.VillaNumbers.ToList());
+        View(_context.VillaNumbers.Include(v => v.Villa).ToList());
 
-    public IActionResult Create()
-    {
-        ViewBag.Villas = _context.villas.Select(v => new SelectListItem
+    public IActionResult Create() =>
+        View(new CreateVillaNumberViewModel
         {
-            Text = v.Name,
-            Value = v.Id.ToString()
+            Villas = _context.villas.Select(v => new SelectListItem
+            {
+                Text = v.Name,
+                Value = v.Id.ToString()
+            })
         });
 
-        return View();
-    }
-
     [HttpPost]
-    public IActionResult Create(VillaNumber obj)
+    public IActionResult Create(CreateVillaNumberViewModel obj)
     {
         if (!ModelState.IsValid)
         {
+            obj.Villas = _context.villas.Select(v => new SelectListItem
+            {
+                Text = v.Name,
+                Value = v.Id.ToString()
+            });
             return View(obj);
         }
 
-        _context.VillaNumbers.Add(obj);
+        if (_context.VillaNumbers.Any(v => v.Villa_Number == obj.VillaNumber.Villa_Number))
+        {
+            obj.Villas = _context.villas.Select(v => new SelectListItem
+            {
+                Text = v.Name,
+                Value = v.Id.ToString()
+            });
+
+            TempData["Error"] = "Villa number exists try another one";
+
+            return View(obj);
+        }
+
+        _context.VillaNumbers.Add(obj.VillaNumber);
         _context.SaveChanges();
 
         TempData["OpSuccess"] = "A new villa has been created";

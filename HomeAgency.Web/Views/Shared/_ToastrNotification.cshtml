@@ -1,7 +1,17 @@
-﻿@if(TempData["OpSuccess"] is not null)
+﻿@if (TempData["OpSuccess"] is not null || TempData["Error"] is not null)
 {
     <script src="~/lib/toastr/toastr.min.js"></script>
     <script>
-        toastr.success("@TempData["OpSuccess"]")
+        @{
+            if (TempData["OpSuccess"] is not null)
+            {
+                @Html.Raw($"toastr.success('{TempData["OpSuccess"]}')")
+            }
+
+            if (TempData["Error"] is not null)
+            {
+                @Html.Raw($"toastr.error('{TempData["Error"]}')")
+            }
+        }
     </script>
 }
