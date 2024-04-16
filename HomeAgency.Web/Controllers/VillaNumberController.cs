@@ -72,19 +72,32 @@ public class VillaNumberController : Controller
             return NotFound();
         }
 
-        return View(villaNumber);
+        return View(new CreateVillaNumberViewModel
+        {
+            VillaNumber = villaNumber,
+            Villas = _context.villas.Select(v => new SelectListItem
+            {
+                Text = v.Name,
+                Value = v.Id.ToString()
+            })
+        });
     }
 
     [HttpPost]
-    public IActionResult Update(VillaNumber obj)
+    public IActionResult Update(CreateVillaNumberViewModel villaNumberViewModel)
     {
 
         if (!ModelState.IsValid)
         {
-            return View(obj);
+            villaNumberViewModel.Villas = _context.villas.Select(v => new SelectListItem
+            {
+                Text = v.Name,
+                Value = v.Id.ToString()
+            });
+            return View(villaNumberViewModel);
         }
 
-        _context.VillaNumbers.Update(obj);
+        _context.VillaNumbers.Update(villaNumberViewModel.VillaNumber);
         _context.SaveChanges();
 
         TempData["OpSuccess"] = "Villa has been updated";
@@ -101,13 +114,21 @@ public class VillaNumberController : Controller
             return NotFound();
         }
 
-        return View(villaNumber);
+        return View((new CreateVillaNumberViewModel
+        {
+            VillaNumber = villaNumber,
+            Villas = _context.villas.Select(v => new SelectListItem
+            {
+                Text = v.Name,
+                Value = v.Id.ToString()
+            })
+        }));
     }
 
     [HttpPost]
-    public IActionResult Delete(VillaNumber obj)
+    public IActionResult Delete(CreateVillaNumberViewModel villaNumberViewModel)
     {
-        var villaNumber = _context.VillaNumbers.Find(obj.Villa_Number);
+        var villaNumber = _context.VillaNumbers.Find(villaNumberViewModel.VillaNumber.Villa_Number);
 
         if (villaNumber == null)
         {
