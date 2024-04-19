@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HomeAgency.Domain\HomeAgency.Domain.csproj" />
+    <ProjectReference Include="..\HomeAgency.Application\HomeAgency.Application.csproj" />
   </ItemGroup>
 
 </Project>
