@@ -1,4 +1,5 @@
-﻿using HomeAgency.Domain.Entities;
+﻿using HomeAgency.Application.Common.Interfaces;
+using HomeAgency.Domain.Entities;
 using HomeAgency.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,15 +8,15 @@ namespace HomeAgency.Web.Controllers;
 public class VillaController : Controller
 {
 
-    private readonly HomeAgencyDbContext _context;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public VillaController(HomeAgencyDbContext context)
+    public VillaController(IUnitOfWork unitOfWork)
     {
-        _context = context;
+        _unitOfWork = unitOfWork;
     }
 
     public IActionResult Index() =>
-        View(_context.villas.ToList());
+        View(_unitOfWork.Villa.GetAll());
 
     public IActionResult Create() =>
         View();
@@ -34,8 +35,8 @@ public class VillaController : Controller
             return View(obj);
         }
 
-        _context.villas.Add(obj);
-        _context.SaveChanges();
+        _unitOfWork.Villa.Add(obj);
+        _unitOfWork.Save();
 
         TempData["OpSuccess"] = "A new villa has been created";
         return RedirectToAction(nameof(Index));
@@ -43,7 +44,7 @@ public class VillaController : Controller
 
     public IActionResult Update(int villaId)
     {
-        var villa = _context.villas.FirstOrDefault(x => x.Id == villaId);
+        var villa = _unitOfWork.Villa.Get(x => x.Id == villaId);
 
         if (villa == null)
         {
@@ -62,8 +63,8 @@ public class VillaController : Controller
             return View(obj);
         }
 
-        _context.villas.Update(obj);
-        _context.SaveChanges();
+        _unitOfWork.Villa.Update(obj);
+        _unitOfWork.Save();
 
         TempData["OpSuccess"] = "Villa has been updated";
         return RedirectToAction(nameof(Index));
@@ -71,7 +72,7 @@ public class VillaController : Controller
 
     public IActionResult Delete(int villaId)
     {
-        var villa = _context.villas.FirstOrDefault(x => x.Id == villaId);
+        var villa = _unitOfWork.Villa.Get(x => x.Id == villaId);
 
         if (villa == null)
         {
@@ -84,15 +85,15 @@ public class VillaController : Controller
     [HttpPost]
     public IActionResult Delete(Villa obj)
     {
-        var villa = _context.villas.Find(obj.Id);
+        var villa = _unitOfWork.Villa.Get(v => v.Id == obj.Id);
 
         if (villa == null)
         {
             return NotFound();
         }
 
-        _context.villas.Remove(villa);
-        _context.SaveChanges();
+        _unitOfWork.Villa.Remove(villa);
+        _unitOfWork.Save();
 
         TempData["OpSuccess"] = "Villa has been deleted";
         return RedirectToAction(nameof(Index));

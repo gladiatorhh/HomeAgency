@@ -1,3 +1,5 @@
+using HomeAgency.Application.Common.Interfaces;
+using HomeAgency.Infrastructure.Common.Impelementations;
 using HomeAgency.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +10,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<HomeAgencyDbContext>(options => 
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefalutConnectionString")));
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 

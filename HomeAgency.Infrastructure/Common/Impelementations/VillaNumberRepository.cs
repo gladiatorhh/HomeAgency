@@ -4,18 +4,17 @@ using HomeAgency.Infrastructure.Data;
 
 namespace HomeAgency.Infrastructure.Common.Impelementations;
 
-public class VillaRepository : Repository<Villa>, IVillaRepository
+public class VillaNumberRepository : Repository<VillaNumber>, IVillaNumberRepository
 {
     private readonly HomeAgencyDbContext _context;
 
-    public VillaRepository(HomeAgencyDbContext context):base(context)
+    public VillaNumberRepository(HomeAgencyDbContext context) : base(context)
     {
         _context = context;
     }
 
-    public void SaveChanges() =>
-        _context.SaveChanges();
-
-    public void Update(Villa villa) =>
-        _context.villas.Update(villa);
+    public void Update(VillaNumber villa)
+    {
+        _context.Update(villa);
+    }
 }
