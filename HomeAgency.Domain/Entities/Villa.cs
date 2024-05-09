@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HomeAgency.Domain.Entities;
 
@@ -21,6 +23,9 @@ public class Villa
 
     [Display(Name="Image url")]
     public string? ImageUrl { get; set; }
+
+    [NotMapped]
+    public IFormFile Image { get; set; }
 
     public DateTime? CreateDate { get; set; }
 

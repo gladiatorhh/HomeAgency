@@ -9,10 +9,12 @@ public class VillaController : Controller
 {
 
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public VillaController(IUnitOfWork unitOfWork)
+    public VillaController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
     {
         _unitOfWork = unitOfWork;
+        _webHostEnvironment = webHostEnvironment;
     }
 
     public IActionResult Index() =>
@@ -33,6 +35,21 @@ public class VillaController : Controller
         if (!ModelState.IsValid)
         {
             return View(obj);
+        }
+
+        if (obj.Image is not null)
+        {
+            string imageName = Guid.NewGuid().ToString() + Path.GetExtension(obj.Image.FileName);
+            string path = Path.Combine(_webHostEnvironment.WebRootPath, "images", "VillaImages", imageName);
+
+            using var stream = new FileStream(path, FileMode.Create);
+            obj.Image.CopyTo(stream);
+
+            obj.ImageUrl = "/images/VillaImages/" + imageName;
+        }
+        else
+        {
+            obj.ImageUrl = "/images/VillaImages/default.png";
         }
 
         _unitOfWork.Villa.Add(obj);

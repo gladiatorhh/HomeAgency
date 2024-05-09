@@ -23,4 +23,8 @@
     <ProjectReference Include="..\HomeAgency.Infrastructure\HomeAgency.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\VillaImages\" />
+  </ItemGroup>
+
 </Project>
