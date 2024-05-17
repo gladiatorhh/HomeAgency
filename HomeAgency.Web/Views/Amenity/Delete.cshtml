@@ -1,0 +1,45 @@
+﻿@model HomeAgency.Web.ViewModels.CreateAmenityViewModel
+@{
+    ViewData["Title"] = "Delet villa";
+}
+
+<h1>Delete</h1>
+
+
+<div class="card w-100 p-4">
+    <div class="card-header bg-success bg-gradient py-3">
+        <div class="text-center">
+            Delete vialla
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <div asp-validation-summary="ModelOnly" class="mb-2 text-danger"></div>
+        <form method="post" enctype="multipart/form-data">
+            <input asp-for="Amenity.Id" type="hidden" />
+            <input asp-for="Amenity.VillaId" type="hidden" />
+            <div class="mb-3 form-floating">
+                <select disabled class="form-select" asp-for="Amenity.VillaId" asp-items="Model.Villas">
+                    <option selected hidden>Select one villa</option>
+                </select>
+                <label asp-for="Amenity.VillaId"></label>
+                <span class="text-danger" asp-validation-for="Amenity.VillaId"></span>
+            </div>
+            <div class="mb-3 form-floating">
+                <input disabled asp-for="Amenity.Name" class="form-control" />
+                <label asp-for="Amenity.Name"></label>
+                <span class="text-danger" asp-validation-for="Amenity.Name"></span>
+            </div>
+            <div class="mb-3 form-floating">
+                <input disabled asp-for="Amenity.Description" class="form-control" />
+                <label asp-for="Amenity.Description"></label>
+                <span class="text-danger" asp-validation-for="Amenity.Description"></span>
+            </div>
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash-fill"></i> Delete
+            </button>
+            <a class="btn btn-secondary" asp-action="Index" asp-controller="Amenity">
+                <i class="bi bi-x-circle"></i> Cancel
+            </a>
+        </form>
+    </div>
+</div>

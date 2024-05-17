@@ -1,0 +1,50 @@
+﻿@model IEnumerable<HomeAgency.Domain.Entities.Amenity>
+
+@{
+    ViewData["Title"] = "Amenities";
+}
+
+<h1>Amenities list</h1>
+
+<div class="card w-100 p-4">
+    <div class="card-header bg-success bg-gradient py-3">
+        <div class="text-center">
+            All Amenities
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <a asp-action="Create" asp-controller="Amenity" class="btn btn-secondary m-2">
+            <i class="bi bi-plus-circle"></i> Add new amenity
+        </a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Villa Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var amenity in Model)
+                {
+                    <tr>
+                        <td>@amenity.Name</td>
+                        <td>@amenity.Description</td>
+                        <td>@amenity.Villa.Name</td>
+                        <td>
+                            <div class="btn-group">
+                                <a asp-action="Update" asp-controller="Amenity" asp-route-amenityId="@amenity.Id" class="btn btn-success">
+                                    <i class="bi bi-pencil-fill"></i> Update
+                                </a>
+                                <a asp-action="Delete" asp-controller="Amenity" asp-route-amenityId="@amenity.Id" class="btn btn-danger">
+                                    <i class="bi bi-trash-fill"></i> Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
