@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeAgency.Web", "HomeAgency.Web\HomeAgency.Web.csproj", "{B3050229-4861-4069-AE4B-6EE09C5232D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeAgency.Web", "HomeAgency.Web\HomeAgency.Web.csproj", "{B3050229-4861-4069-AE4B-6EE09C5232D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeAgency.Application", "HomeAgency.Application\HomeAgency.Application.csproj", "{0459145D-A1EE-4261-8820-C1B6D062ABCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeAgency.Application", "HomeAgency.Application\HomeAgency.Application.csproj", "{0459145D-A1EE-4261-8820-C1B6D062ABCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeAgency.Domain", "HomeAgency.Domain\HomeAgency.Domain.csproj", "{DFBDD0E6-65D8-4EA1-A556-7E993ECAE8F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeAgency.Domain", "HomeAgency.Domain\HomeAgency.Domain.csproj", "{DFBDD0E6-65D8-4EA1-A556-7E993ECAE8F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeAgency.Infrastructure", "HomeAgency.Infrastructure\HomeAgency.Infrastructure.csproj", "{634D7248-BE7D-452F-B38E-8982799BA9B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeAgency.Infrastructure", "HomeAgency.Infrastructure\HomeAgency.Infrastructure.csproj", "{634D7248-BE7D-452F-B38E-8982799BA9B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

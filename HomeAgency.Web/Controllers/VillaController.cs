@@ -80,6 +80,28 @@ public class VillaController : Controller
             return View(obj);
         }
 
+        if (obj.Image is not null)
+        {
+
+            if (obj.ImageUrl != "/images/VillaImages/default.png" && !string.IsNullOrEmpty(obj.ImageUrl))
+            {
+                string deletePath = Path.Combine(_webHostEnvironment.WebRootPath, obj.ImageUrl.Remove(0,1));
+                if (System.IO.File.Exists(deletePath))
+                {
+                    System.IO.File.Delete(deletePath);
+                }
+            }
+
+            string imageName = Guid.NewGuid().ToString() + Path.GetExtension(obj.Image.FileName);
+            string path = Path.Combine(_webHostEnvironment.WebRootPath, "images", "VillaImages", imageName);
+
+            using var stream = new FileStream(path, FileMode.Create);
+            obj.Image.CopyTo(stream);
+
+            obj.ImageUrl = "/images/VillaImages/" + imageName;
+        }
+
+
         _unitOfWork.Villa.Update(obj);
         _unitOfWork.Save();
 
