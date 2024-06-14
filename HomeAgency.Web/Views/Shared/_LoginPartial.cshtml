@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using HomeAgency.Domain.Entities
+
+@inject SignInManager<ApplicationUser> _signInManager
+@inject UserManager<ApplicationUser> _userManager;
+
+
+<ul class="navbar-nav">
+    @if (_signInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a asp-controller="Account" asp-action="Register" class="nav-link">Hello , @_userManager.GetUserName(User)</a>
+        </li>
+        <li class="nav-item">
+            <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a asp-controller="Account" asp-action="Register" class="nav-link">Register</a>
+        </li>
+        <li class="nav-item">
+            <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
+        </li>
+    }
+</ul>

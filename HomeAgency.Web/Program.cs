@@ -1,6 +1,8 @@
 using HomeAgency.Application.Common.Interfaces;
+using HomeAgency.Domain.Entities;
 using HomeAgency.Infrastructure.Common.Impelementations;
 using HomeAgency.Infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,8 +10,25 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<HomeAgencyDbContext>(options => 
+builder.Services.AddDbContext<HomeAgencyDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefalutConnectionString")));
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<HomeAgencyDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+});
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequiredLength = 6;
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+});
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

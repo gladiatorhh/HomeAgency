@@ -1,9 +1,10 @@
 ﻿using HomeAgency.Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HomeAgency.Infrastructure.Data;
 
-public class HomeAgencyDbContext : DbContext
+public class HomeAgencyDbContext : IdentityDbContext<ApplicationUser>
 {
     public HomeAgencyDbContext(DbContextOptions<HomeAgencyDbContext> options) : base(options)
     {
@@ -15,6 +16,8 @@ public class HomeAgencyDbContext : DbContext
     public DbSet<VillaNumber> VillaNumbers { get; set; }
 
     public DbSet<Amenity> Amenity { get; set; }
+
+    public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -67,6 +70,6 @@ public class HomeAgencyDbContext : DbContext
          );
 
 
-        //base.OnModelCreating(modelBuilder);
+        base.OnModelCreating(modelBuilder);
     }
 }

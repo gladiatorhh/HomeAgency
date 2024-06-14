@@ -1,13 +1,16 @@
 ﻿using HomeAgency.Application.Common.Interfaces;
+using HomeAgency.Application.Common.Utility;
 using HomeAgency.Domain.Entities;
 using HomeAgency.Infrastructure.Data;
 using HomeAgency.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace HomeAgency.Web.Controllers;
 
+[Authorize(Roles = SD.Role_Admin)]
 public class VillaNumberController : Controller
 {
 

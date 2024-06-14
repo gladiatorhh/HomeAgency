@@ -1,13 +1,16 @@
 ﻿using HomeAgency.Application.Common.Interfaces;
+using HomeAgency.Application.Common.Utility;
 using HomeAgency.Domain.Entities;
 using HomeAgency.Infrastructure.Common.Impelementations;
 using HomeAgency.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HomeAgency.Web.Controllers;
 
+[Authorize(Roles = SD.Role_Admin)]
 public class AmenityController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
