@@ -16,13 +16,13 @@ public class Villa
 
     public double Price { get; set; }
 
-    [Range(1,10000)]
+    [Range(1, 10000)]
     public int Sqft { get; set; }
 
     [Range(1, 10)]
     public int Occupancy { get; set; }
 
-    [Display(Name="Image url")]
+    [Display(Name = "Image url")]
     public string? ImageUrl { get; set; }
 
     [NotMapped]
@@ -34,4 +34,7 @@ public class Villa
 
     [ValidateNever]
     public IEnumerable<Amenity> VillaAmenity { get; set; }
+
+    [NotMapped]
+    public bool IsAvalible { get; set; } = true;
 }

@@ -1,6 +1,7 @@
 ﻿using HomeAgency.Application.Common.Interfaces;
 using HomeAgency.Domain.Entities;
 using HomeAgency.Infrastructure.Data;
+using HomeAgency.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeAgency.Web.Controllers;
@@ -19,6 +20,28 @@ public class VillaController : Controller
 
     public IActionResult Index() =>
         View(_unitOfWork.Villa.GetAll());
+
+    [HttpPost]
+    public IActionResult GetVillasByDate(int nights, DateOnly checkInDate)
+    {
+        var villasList = _unitOfWork.Villa.GetAll(includeProperties: "VillaAmenity").ToList();
+
+        foreach (var villa in villasList)
+        {
+            if (villa.Id % 2 == 0)
+            {
+                villa.IsAvalible = false;
+            }
+        }
+
+        HomeVM homeVM = new HomeVM
+        {
+            CheckInDate = checkInDate,
+            Nights = nights,
+            VillaList = villasList
+        };
+        return PartialView("_VillasList", homeVM);
+    }
 
     public IActionResult Create() =>
         View();
@@ -85,7 +108,7 @@ public class VillaController : Controller
 
             if (obj.ImageUrl != "/images/VillaImages/default.png" && !string.IsNullOrEmpty(obj.ImageUrl))
             {
-                string deletePath = Path.Combine(_webHostEnvironment.WebRootPath, obj.ImageUrl.Remove(0,1));
+                string deletePath = Path.Combine(_webHostEnvironment.WebRootPath, obj.ImageUrl.Remove(0, 1));
                 if (System.IO.File.Exists(deletePath))
                 {
                     System.IO.File.Delete(deletePath);
