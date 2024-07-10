@@ -5,17 +5,12 @@ using System.Linq.Expressions;
 
 namespace HomeAgency.Infrastructure.Common.Impelementations;
 
-public class AmenityRepository : Repository<Amenity>, IAmenityRepository
+public class ApplicationUserReposotory : Repository<ApplicationUser>,IApplicaitonUserRepository
 {
     private readonly HomeAgencyDbContext _context;
 
-    public AmenityRepository(HomeAgencyDbContext context) : base(context)
+    public ApplicationUserReposotory(HomeAgencyDbContext context):base(context)
     {
         _context = context;
-    }
-
-    public void Update(Amenity amenity)
-    {
-        _context.Amenity.Update(amenity);
     }
 }

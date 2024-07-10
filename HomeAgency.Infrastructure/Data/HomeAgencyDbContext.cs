@@ -19,6 +19,8 @@ public class HomeAgencyDbContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
+    public DbSet<Booking> Bookings { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Villa>().HasData(

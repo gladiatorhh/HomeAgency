@@ -14,6 +14,8 @@ public class UnitOfWork : IUnitOfWork
         Villa = new VillaRepository(context);
         VillaNumber = new VillaNumberRepository(context);
         Amenity = new AmenityRepository(context);
+        User = new ApplicationUserReposotory(context);
+        Booking = new BookingRepository(context);
     }
 
     public IVillaRepository Villa { get; private set; }
@@ -21,6 +23,10 @@ public class UnitOfWork : IUnitOfWork
     public IVillaNumberRepository VillaNumber { get; private set; }
 
     public IAmenityRepository Amenity { get; private set; }
+
+    public IApplicaitonUserRepository User { get; private set; }
+
+    public IBookingRepository Booking {  get; private set; }
 
     public void Save()
     {

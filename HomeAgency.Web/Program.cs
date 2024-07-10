@@ -4,6 +4,7 @@ using HomeAgency.Infrastructure.Common.Impelementations;
 using HomeAgency.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,12 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
+
+#region Stripe
+
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe")["SecretKey"];
+
+#endregion
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

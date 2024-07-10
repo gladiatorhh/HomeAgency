@@ -70,11 +70,10 @@
 @section Scripts {
     <script>
         $("#btn-submit-filter").on("click", function () {
-
             $("#spinner").removeClass("d-none");
             var content = {
                 CheckInDate: $("input[name=CheckInDate]").val(),
-                Nights: $("option[name=Nights]").val()
+                Nights: $("select[name=Nights]").find("option:selected").val()
             };
 
             $.ajax({

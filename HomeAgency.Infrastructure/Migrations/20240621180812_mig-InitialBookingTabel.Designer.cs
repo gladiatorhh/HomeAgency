@@ -4,6 +4,7 @@ using HomeAgency.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeAgency.Infrastructure.Migrations
 {
     [DbContext(typeof(HomeAgencyDbContext))]
-    partial class HomeAgencyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240621180812_mig-InitialBookingTabel")]
+    partial class migInitialBookingTabel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,14 +166,14 @@ namespace HomeAgency.Infrastructure.Migrations
                     b.Property<DateTime>("ActualCheckOutDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("BookingDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("BookingDate")
+                        .HasColumnType("date");
 
-                    b.Property<DateTime>("CheckInDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("CheckInDate")
+                        .HasColumnType("date");
 
-                    b.Property<DateTime>("CheckOutDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("CheckOutDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
